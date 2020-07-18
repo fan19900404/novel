@@ -1,11 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    hahahah
-</body>
+    <style>
+      html,
+      body {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+      }
+      .main {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        margin: 100px auto 30px;
+        width: 80%;
+        min-width: 160px;
+        max-width: 960px;
+        height: 60px;
+        border: 1px solid blue;
+        border-radius: 10px;
+        overflow: hidden;
+        padding: 0 0 0 20px;
+      }
+      .search {
+        flex: 1 1 auto;
+        border: none;
+        list-style: none;
+        outline: none;
+        height: 50px;
+        font-size: 28px;
+        color: #333;
+      }
+      .btn {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 120px;
+        background: blue;
+        height: 100%;
+        color: #fff;
+        font-size: 20px;
+        user-select: none;
+      }
+      .iframe{
+        width: 80%;
+        height: calc(100% - 200px);
+        margin: auto;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <input type="text" class="search" />
+      <div class="btn">立即搜索</div>
+    </div>
+    <div class="iframe"></div>
+    <script>
+      document.querySelector(".btn").addEventListener(
+        "click",
+        function () {
+          const text = document.querySelector(".search").value || "";
+          if (text) {
+            // document.querySelector('.iframe').src=`/api/search?text=${text}`
+            fetch("/api/search?text=" + text)
+              .then((res) => res.text())
+              .then((res) => document.querySelector('.iframe').innerHTML=res);
+          }
+        },
+        false
+      );
+    </script>
+  </body>
 </html>
